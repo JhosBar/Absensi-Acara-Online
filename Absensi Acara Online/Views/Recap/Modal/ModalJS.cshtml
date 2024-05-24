@@ -1,0 +1,119 @@
+﻿@{
+    string BaseAttachLink = $"{Url.Action("GetSignature", "Recap")}?folder=PBL/AbsensiOnline&namaFile=";
+}
+
+<script>
+    $(function () {
+        $('.timepkr').flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            // enableSeconds: true,
+        });
+
+        var start = moment().subtract(29, "days");
+        var end = moment();
+
+        function cb(start, end) {
+            $("#qDate").html(start.format("D MMMM,YYYY") + " - " + end.format("D MMMM,YYYY"));
+        }
+
+        $("#qDate").daterangepicker({
+            startDate: start,
+            endDate: end,
+
+            "locale": {
+                "format": "DD/MM/YYYY",
+            },
+
+        }, cb);
+
+        cb(start, end);
+
+        $("#qDate").on("apply.daterangepicker", function (ev, picker) {
+            var selectedStartDate = picker.startDate;
+            var selectedEndDate = picker.endDate;
+
+            // Calculate the difference in days
+            var daysDiff = selectedEndDate.diff(selectedStartDate, 'days');
+
+            // Update the displayed date range
+            cb(selectedStartDate, selectedEndDate);
+        });
+
+        // Daterange JS Create Modal
+        function cb(date) {
+            $("#EventDate_Create").html(date.format("D MMMM,YYYY"));
+        }
+
+        $("#EventDate_Create").daterangepicker({
+            singleDatePicker: true,
+            startDate: moment(), // Set default start date if needed
+
+            "locale": {
+                "format": "DD/MM/YYYY",
+            },
+
+        }, cb);
+
+        cb(moment()); // Set initial value
+
+        $("#EventDate_Create").on("apply.daterangepicker", function (ev, picker) {
+            var selectedDate = picker.startDate;
+            cb(selectedDate);
+        });
+
+        // Daterange JS Edit Modal
+        function cb(date) {
+            $("#EventDate_Edit").html(date.format("D MMMM,YYYY"));
+        }
+
+        $("#EventDate_Edit").daterangepicker({
+            singleDatePicker: true,
+            startDate: moment(), // Set default start date if needed
+
+            "locale": {
+                "format": "DD/MM/YYYY",
+            },
+
+        }, cb);
+
+        cb(moment()); // Set initial value
+
+        $("#EventDate_Edit").on("apply.daterangepicker", function (ev, picker) {
+            var selectedDate = picker.startDate;
+            cb(selectedDate);
+        });
+
+    });
+
+    var modalView = $('#Signature_ModalView');
+    
+    function CloseModal() {
+
+        modalView.modal('hide');
+        
+    }
+
+    function ViewAttenderSignature(row) {
+        var get = RecapTab.rows(row).data();
+        modalView.modal('show');
+
+        if (get) {
+            var x = get[0];
+            $("#signatureModalTitle").text(x.attenderName + "'s Signature");
+
+            var base = "@Html.Raw(BaseAttachLink)";
+            // /recap/getsignature ? folder = PBL/AbsensiOnline&namaFile=
+            $("#brandImageLink").attr("href", base + x.aSignature);
+            $("#brandImageLink").attr("target", "_blank");
+
+            $("#brandImage").attr("src", base + x.aSignature);
+
+            var vari = $("#brandImage").attr("src");
+
+        }
+    }
+</script>
+
+                    

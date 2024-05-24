@@ -1,0 +1,60 @@
+﻿<div class="card mb-3">
+    <div class="card-body">
+        <div id="" class="row">
+            <div class="col-md-4">
+                <input type="search" id="qUsername" class="form-control" placeholder="Search Username" />
+            </div>
+            <div class="col-md-4">
+                <input type="search" id="qEmail" class="form-control" placeholder="Search Email" />
+            </div>
+            <div class="col-md-3">
+                @* <input type="search" id="qStatus" class="form-control" placeholder="Search Status" /> *@
+                <select type="search" id="qStatus" class="form-control" placeholder="Search Status">
+                    <option value="" selected readonly>Search Status</option>
+                    <option value="ENABLED">Enabled</option>
+                    <option value="DISABLED">Disabled</option>
+                </select>
+            </div>
+            <div class="col-md-1 d-flex align-items-end">
+                <button type="button" id="filter_admin" onclick="AdminTable()" class="btn btn-secondary"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card card-flush">
+    <div class="card-header pt-5">
+        <div class="card-toolbar">
+            <button type="button" class="btn btn-sm btn-light-primary rotate" onclick="ViewCreate_Modal()">
+                Add Admin
+                <i class="ki-duotone ki-plus fs-3 ms-3"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table align-middle table-row-dashed fs-6 gy-3 no-footer" id="AdminTable">
+                <thead>
+                    <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
+                        <th>No.</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th class="text-start min-w-100px">Action</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Views/Admin/Modal/ModalCreate.cshtml")
+@await Html.PartialAsync("~/Views/Admin/Modal/ModalEdit.cshtml")
+@await Html.PartialAsync("~/Views/Admin/Modal/ModalSetPass.cshtml")
+
+@section Scripts {
+    @await Html.PartialAsync("~/Views/Admin/Modal/ModalJS.cshtml")
+    @await Html.PartialAsync("~/Views/Admin/DatatableJS.cshtml")
+}

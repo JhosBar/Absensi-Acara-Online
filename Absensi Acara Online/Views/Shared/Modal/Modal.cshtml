@@ -1,0 +1,49 @@
+﻿<div class="modal fade" id="ChangePassword" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="fs-2" style="font-weight:bold;">Change Password</span>
+                <!--begin::Close-->
+                <div>
+                    <button type="button" class="btn btn-sm btn-light-primary" onclick="SubmitChangePassword()">Submit</button>
+                    <button type="button" class="btn btn-sm btn-light fw-bold" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+            <div class="modal-body py-lg-1 px-lg-10">
+                <div class="py-lg-5">
+                    <!--begin::Body-->
+                    <div class="d-flex flex-column flex-lg-row-fluid" id="FormFileUpload" enctype="multipart/form-data">
+                        <div class="tab-content" id="myTabContent">
+
+                            <!--File Form-->
+                            <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
+                                <form id="FormChangePassword" method="post">
+                                    <input id="UserId_Password" name="Id" type="hidden" />
+                                    <div class="mb-3">
+                                        <label class="form-label ms-2 fs-6 mb-1">Username</label>
+                                        <input type="text" id="Username_Password" class="form-control mb-2" autocomplete="off" readonly />
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label ms-2 fs-6 mb-1">Current Password</label>
+                                        <input type="password" id="Current_Password" name="Current_Password" class="form-control mb-2" autocomplete="off" />
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label ms-2 fs-6 mb-1">New Password</label>
+                                        <input type="password" id="User_Password" name="Password" class="form-control mb-2" autocomplete="off" />
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
+</div>

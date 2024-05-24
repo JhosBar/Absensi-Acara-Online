@@ -1,0 +1,41 @@
+﻿<script>
+    $(function () {
+
+        $(document).on("click", '#ViewAttendForm', function () {
+            // var form = $(this).closest('#EventInfoForm');
+            var form = $(this).next();
+            var formData = form.serialize();
+            window.location.href = '@Url.Action("Form", "Attendance")?' + formData;
+        });
+
+        $(document).on("click", '#ViewEventDetail', function () {
+            var form = $(this).prev();
+            var formData = form.serialize();
+
+            let eventName = form.find('#EventDetail_Name').val();
+            let eventDate = form.find('#EventDetail_Date').val();
+            let eventTime = form.find('#EventDetail_Time').val();
+            let eventLocation = form.find('#EventDetail_Location').val();
+            let eventNote = form.find('#EventDetail_Note').val();
+
+            $("#Home_ModalEventDetail").modal("show");
+            
+            $("#ModalDetail_Title").text(eventName)
+            $("#ModalDetail_Date").text(eventDate)
+            $("#ModalDetail_Time").text(eventTime)
+            $("#ModalDetail_Location").text(eventLocation)
+            $("#ModalDetail_Note").text(eventNote)
+
+        });
+    });
+
+    var modalDetail = $('#Home_ModalEventDetail');
+    
+    function CloseModal() {
+
+        modalDetail.modal('hide');
+        
+    }
+</script>
+
+                    

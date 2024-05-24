@@ -1,0 +1,58 @@
+﻿<!--Bank Statement Import Modal - File -->
+<div class="modal fade" id="Event_ModalCreate" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="fs-2" style="font-weight:bold;">Create Event</span>
+                <!--begin::Close-->
+                <div>
+                    <button type="button" class="btn btn-sm btn-light-primary" onclick="SubmitCreateModal()">Submit</button>
+                    <button type="button" class="btn btn-sm btn-light fw-bold" onclick="CloseModal()">Close</button>
+                </div>
+            </div>
+
+            <div class="modal-body py-lg-1 px-lg-10">
+                <div class="py-lg-5">
+                    <!--begin::Body-->
+                    <div class="d-flex flex-column flex-lg-row-fluid" enctype="multipart/form-data">
+
+                        <div class="tab-content" id="myTabContent">
+                            <form id="FormEventCreate">
+                                <div class="mb-5">
+                                    <label class="form-label ms-2 fs-6 mb-1">Event</label>
+                                    <input id="EventName_Create" name="Event" class="form-control mb-2" autocomplete="off" />
+                                </div>
+
+                                <div class="mb-5">
+                                    <label class="form-label ms-2 fs-6 mb-1">Date</label>
+                                    <input id="EventDate_Create" name="Date" class="form-control mb-2" autocomplete="off" />
+                                </div>
+
+                                <div class="mb-5">
+                                    <label class="form-label ms-2 fs-6 mb-1">Time</label>
+                                    <input type="text" id="EventHour_Create" name="Hour" class="form-control mb-2 timepkr" autocomplete="off" />
+                                </div>
+
+                                <div class="mb-5">
+                                    <label class="form-label ms-2 fs-6 mb-1">Location</label>
+                                    @* <input id="EventLocation_Create" name="Location" class="form-control mb-2" autocomplete="off" /> *@
+                                    <textarea id="EventLocation_Create" name="Location" class="form-control mb-2" autocomplete="off" maxlength="255"></textarea>
+                                </div>
+
+                                <div class="mb-5">
+                                    <label class="form-label ms-2 fs-6 mb-1">Description</label>
+                                    @* <input id="EventNote_Create" name="Note" class="form-control mb-2" autocomplete="off" /> *@
+                                    <textarea id="EventNote_Create" name="Note" class="form-control mb-2" autocomplete="off" maxlength="255"></textarea>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
+</div>

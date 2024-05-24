@@ -1,0 +1,154 @@
+﻿<!-- Event Detail Modal -->
+<div class="modal fade" id="Event_ModalView" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-md">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="fs-2" style="font-weight:bold;">Event Details</span>
+				<!--begin::Close-->
+				<div>
+					<button type="button" class="btn btn-sm btn-light fw-bold" onclick="CloseModal()">Close</button>
+				</div>
+			</div>
+
+			<div class="modal-body py-lg-1 px-lg-10">
+				<div class="py-lg-5">
+					<!--begin::Body-->
+					<div class="d-flex flex-column flex-lg-row-fluid" enctype="multipart/form-data">
+
+						<div class="tab-content" id="myTabContent">
+							<!--File Form-->
+							<div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
+								<form id="FormBankStatementEdit">
+									<input type="hidden" id="EventIdView" name="Id" />
+									<div class="p-4 px-5 d-flex justify-content-center">
+										<div class="row"> 
+											<div class="row mb-5"> 
+												<div class="row">
+													<span id="EventView_Title" class="fs-1" style="font-weight:bold;"></span>
+												</div>
+											</div> 
+											<div class="row mb-7 justify-content-center">
+												<div class="col-sm-6 col-12">
+													<div class="row">
+														<label class="form-label fs-6 m-0">Date</label>
+													</div>
+													<div class="row">
+														<span id="EventView_Date" class="fs-3" style="font-weight:bold;"></span>
+													</div>
+												</div>
+												<div class="col-sm-6 col-12">
+													<div class="row">
+														<label class="form-label fs-6 m-0">Time</label>
+													</div>
+													<div class="row">
+														<span id="EventView_Time" class="fs-3" style="font-weight:bold;"></span>
+													</div>
+												</div>
+											</div>
+											<div class="row mb-5 justify-content-center">
+												<label class="form-label fs-6">Location</label>
+												<span id="EventView_Location" class="fw-bold">
+												</span>
+											</div>
+											<div class="row mb-5 justify-content-center">
+												<label class="form-label fs-6">Description</label>
+												<span id="EventView_Note" class="fw-bold">
+												</span>
+											</div>
+											<div class="row mb-5 justify-content-center">
+												<label class="form-label fs-6 text-center mb-0">Link</label>
+												<a href="#" class="fs-6 text-center mt-0" style="font-style:italic;">Example link</a>
+											</div>
+
+											<div class="row mb-5 justify-content-center">
+												@* <div class="col-auto border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+													<!--begin::Number-->
+													<div class="d-flex align-items-center">
+														<i class="ki-duotone ki-user text-primary me-2 fs-3">
+															<span class="path1"></span>
+															<span class="path2"></span>
+														</i>
+														<div class="fs-2 fw-bold" data-kt-countup="true" id="cobaCount"></div>
+													</div>
+													<!--end::Number-->
+													<!--begin::Label-->
+													<div class="fw-semibold fs-6">Participated</div>
+													<!--end::Label-->
+												</div> *@
+
+												<div class="col-auto">
+													<a class="text-center btn btn-secondary" id="ViewEventAttender" style="width:100px;">
+														<i class="bi bi-people-fill text-center" style="font-size:22px;"></i>Attender
+													</a>
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!--end::Modal content-->
+		</div>
+		<!--end::Modal dialog-->
+	</div>
+</div>
+
+<!-- ========================================================================================================================================================================= -->
+
+<!-- Event Attender Modal -->
+<div class="modal fade" id="Event_ModalViewAttender" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-md">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="fs-2" style="font-weight:bold;">Event Attender</span>
+				<!--begin::Close-->
+				<div>
+					<button type="button" class="btn btn-sm btn-light fw-bold" onclick="BackButton()">Back</button>
+					@* <button type="button" class="btn btn-sm btn-danger fw-bold" onclick="CloseModal()">Close</button> *@
+				</div>
+			</div>
+
+			<div class="modal-body py-lg-1 px-lg-10">
+				<div class="py-lg-5">
+					<!--begin::Body-->
+					<div class="d-flex flex-column flex-lg-row-fluid" enctype="multipart/form-data">
+
+						<div class="tab-content" id="myTabContent">
+							<!--File Form-->
+							<div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
+								<div id="AttenderContent" class="p-2 px-5 d-flex justify-content-start row">
+
+
+									@* <div class="col-6 d-flex align-item-center my-3">
+										<div class="d-flex flex-stack">
+											<div class="symbol symbol-40px me-5">
+												<img src="assets/media/avatars/blank.png" class="h-50 align-self-center" alt="">
+											</div>
+											<div class="d-flex align-items-center flex-row-fluid flex-wrap">
+												<div class="flex-grow-1 me-2">
+													<span class="text-gray-800 text-hover-primary fs-6 fw-bold">Jhosua Barnabas</span>
+													<span class="text-muted fw-semibold d-block fs-7">12/07/2024</span>
+												</div>
+											</div>
+										</div>
+									</div> *@
+
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<!--end::Modal content-->
+		</div>
+		<!--end::Modal dialog-->
+	</div>
+</div>

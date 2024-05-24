@@ -1,0 +1,43 @@
+﻿<!--Bank Statement Import Modal - File -->
+<div class="modal fade" id="Admin_ModalSetPass" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="fs-2" style="font-weight:bold;">Add Admin</span>
+                <!--begin::Close-->
+                <div>
+                    <button type="button" class="btn btn-sm btn-light-primary" onclick="SubmitSetPassModal()">Submit</button>
+                    <button type="button" class="btn btn-sm btn-light fw-bold" onclick="CloseModal()">Close</button>
+                </div>
+            </div>
+
+            <div class="modal-body py-lg-1 px-lg-10">
+                <div class="py-lg-5">
+                    <!--begin::Body-->
+                    <div class="d-flex flex-column flex-lg-row-fluid" enctype="multipart/form-data">
+
+                        <div class="tab-content" id="myTabContent">
+                            <form id="FormAdminSetPass">
+                                <input type="hidden" id="AdminIdEdit" name="Id" />
+
+                                <div class="mb-1">
+                                    <label class="form-label ms-2 fs-6 mb-1">Password</label>
+                                    <input id="AdminPassword_SetPass" name="Password" class="form-control mb-2" autocomplete="off" />
+                                </div>
+
+                                <div class="my-5">
+                                    <label class="form-label ms-2 fs-6 mb-1">Confirm Password</label>
+                                    <input id="AdminCPassword_SetPass" name="PasswordSalt" class="form-control mb-2" autocomplete="off" />
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
+</div>

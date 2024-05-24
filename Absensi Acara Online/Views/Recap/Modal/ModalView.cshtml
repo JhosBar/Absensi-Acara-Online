@@ -1,0 +1,129 @@
+﻿@* <!--Bank Statement Import Modal - File -->
+<div class="modal fade" id="Event_ModalView" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="fs-2" style="font-weight:bold;">Event Details</span>
+                <!--begin::Close-->
+					<div>
+						<button type="button" class="btn btn-sm btn-light fw-bold" onclick="CloseModal()">Close</button>
+					</div>
+            </div>
+
+            <div class="modal-body py-lg-1 px-lg-10">
+                <div class="py-lg-5">
+                    <!--begin::Body-->
+                    <div class="d-flex flex-column flex-lg-row-fluid" enctype="multipart/form-data">
+
+                        <div class="tab-content" id="myTabContent">
+                            <!--File Form-->
+                            <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
+                                <form id="FormBankStatementEdit">
+									<input type="hidden" id="EventIdView" name="Id" />
+                                    <div class="p-4 px-5 d-flex justify-content-center">
+                                        <div>
+											<div class="row mb-5">
+												<div class="row">
+													<span id="EventView_Title" class="fs-1 text-center" style="font-weight:bold;"></span>
+												</div>
+											</div>
+											<div class="row mb-7 justify-content-center" style="text-align: center;">
+												<div class="col-md-6 col-12">
+													<div class="row">
+														<label class="form-label fs-6 text-center m-0">Date</label>
+													</div>
+													<div class="row">
+														<span id="EventView_Date" class="fs-3 text-center" style="font-weight:bold;"></span>
+													</div>
+												</div>
+												<div class="col-md-6 col-12">
+													<div class="row">
+														<label class="form-label fs-6 text-center m-0">Time</label>
+													</div>
+													<div class="row">
+														<span id="EventView_Time" class="fs-3 text-center" style="font-weight:bold;"></span>
+													</div>
+												</div>
+											</div>
+											<div class="row mb-5 justify-content-center">
+												<label class="form-label fs-6 text-center">Location</label>
+												<textarea id="EventView_Location" type="text" class="form-control form-control-solid me-3 flex-grow-1" style="width:380px; height:43.6px;" disabled></textarea>
+											</div>
+											<div class="row mb-5 justify-content-center">
+												<label class="form-label fs-6 text-center">Description</label>
+												<textarea id="EventView_Note" type="text" class="form-control form-control-solid me-3 flex-grow-1" style="width:380px; height:43.6px;" disabled></textarea>
+											</div>
+											<div class="row mb-5 justify-content-center">
+												<label class="form-label fs-6 text-center mb-0">Link</label>
+												<a href="#" class="fs-6 text-center mt-0" style="font-style:italic;">Example link</a>
+											</div>
+											<div class="row mb-5 justify-content-center">
+												<a class="text-center btn btn-secondary" style="width:100px;" href="@Url.Action("Index", "Attendance")">
+													<i class="bi bi-people-fill text-center" style="font-size:22px;"></i>Attender
+												</a>
+											</div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
+</div> *@
+
+<!-- ===================================================================================================================================================================== -->
+
+<!-- Attender Signature View Modal -->
+<div class="modal fade" id="Signature_ModalView" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-md">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span id="signatureModalTitle" class="fs-2" style="font-weight:bold;">
+					<span class="fs-2 text-gray-400" style="font-weight:bold;">'s Signature</span>
+				</span>
+				<!--begin::Close-->
+				<div>
+					<button type="button" class="btn btn-sm btn-light fw-bold" onclick="CloseModal()">Close</button>
+				</div>
+			</div>
+
+			<div class="modal-body py-lg-1 px-lg-10">
+				<div class="py-lg-5">
+					<!--begin::Body-->
+					<div class="d-flex flex-column flex-lg-row-fluid" enctype="multipart/form-data">
+
+						<div class="tab-content" id="myTabContent">
+							<!--File Form-->
+							<div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
+								<form id="FormBankStatementEdit">
+									<div class="p-4 px-5 d-flex justify-content-center">
+										
+										<div class="image-input image-input-empty image-input-outline image-input-placeholder" data-kt-image-input="true">
+											<!--begin::Preview existing avatar-->
+											<a id="brandImageLink" class="image-link">
+												<img id="brandImage" class="rounded-2 border border-4 mh-425px" style="width:auto;" />
+											</a>
+										</div>
+
+									</div>
+								</form>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<!--end::Modal content-->
+		</div>
+		<!--end::Modal dialog-->
+	</div>
+</div>
+

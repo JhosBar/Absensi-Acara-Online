@@ -1,0 +1,95 @@
+﻿@{
+    ViewData["Title"] = "Attendance Form";
+    Layout = "~/Views/Shared/_Layout_AttForm.cshtml";
+}
+
+<div class="card mb-3">
+    <div class="card-body">
+        <div id="" class="row">
+            <div class="col-md-12 d-flex align-items-center justify-content-start mb-1">
+                <span class="fs-1 fw-bolder">@ViewBag.Event</span>
+            </div>
+            <div class="d-flex align-items-center justify-content-start text-center">
+                <span class="fw-bold fs-4 text-gray-800 me-2">@ViewBag.Date</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="card card-flush">
+    <div class="card-header pt-5">
+        <div class="card-toolbar">
+            <div class="me-3">
+                <div class="fw-bold fs-6 text-gray-800 me-2" id="datetimeCurrent"></div>
+            </div>
+        </div>
+        <div class="card-toolbar">
+            <div class="mx-3">
+                <button type="button" class="btn btn-sm btn-light-primary rotate" onclick="SubmitAttenderForm()">
+                    Submit
+                    <i class="bi bi-check-circle-fill fs-6 ms-2"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <form id="attenderForm" class="card-body py-5">
+        <input type="hidden" name="EventId" value="@ViewBag.Id" />
+        <div class="row mb-5">
+            <label class="form-label fs-6 fw-bold text-gray-600 mb-3 ms-2">*Please input your actual personal data </label>
+            <div class="col-lg-4">
+                <div class="position-relative">
+                    <input type="text" name="Name" class="form-control form-control-solid" placeholder="Name" autocomplete="off" required>
+                    <div class="position-absolute translate-middle-y top-50 end-0 me-3">
+                        <i class="bi bi-person" style="font-size: 2rem;"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="position-relative">
+                    <input type="email" name="Email" class="form-control form-control-solid" maxlength="30" placeholder="Email" autocomplete="off" required>
+                    <div class="position-absolute translate-middle-y top-50 end-0 me-3">
+                        <i class="bi bi-envelope" style="font-size: 2rem;"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="position-relative">
+                    <input type="number" name="Phone" class="form-control form-control-solid" maxlength="15" placeholder="Phone" autocomplete="off" required>
+                    <div class="position-absolute translate-middle-y top-50 end-0 me-3">
+                        <i class="bi bi-phone" style="font-size: 2rem;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <label class="required form-label fs-6 fw-bold text-gray-700 mb-3 ms-2">Signature</label>
+            <div class="col-lg-8">
+                <div class="mb-5">
+                    <canvas class="form-control form-control-solid h-150px w-300px js-signature" name="Signature"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col mb-5">
+                <button id="SignClear" type="button" class="btn btn-sm btn-light-danger rotate">
+                    Clear
+                    <i class="bi bi-eraser-fill fs-6 ms-2"></i>
+                </button>
+                @* <button id="SignDownload" type="button" class="btn btn-sm btn-light-warning rotate">
+                    Download Signature
+                    <i class="ki-duotone ki-exit-up fs-3 ms-2">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                        <span class="path3"></span>
+                    </i>
+                </button> *@
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("~/Views/Attendance/FormJS.cshtml")
+}

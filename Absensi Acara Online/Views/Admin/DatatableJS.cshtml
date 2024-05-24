@@ -1,0 +1,99 @@
+﻿<script>
+    function getSearchParam() {
+        let qUsername = "?qUsername=" + $('#qUsername').val();
+        let qEmail = "&qEmail=" + $('#qEmail').val();
+        let qStatus = "&qStatus=" + $('#qStatus').val();
+        let param = qUsername + qEmail + qStatus;
+        return param;
+    }
+
+    var AdmTab;
+    function AdminTable() {
+        if (!AdmTab) {
+            AdmTab = $('#AdminTable').DataTable({
+
+                scrollY: true,
+                responsive: false,
+                filter: false,
+                processing: true,
+                serverSide: true,
+                order: [[1, 'asc']],
+
+                lengthMenu: [
+                    [10, 25, 50, 100, 500],
+                    ['10', '25', '50', '100', '500']
+                ],
+
+                ajax: {
+                    url: '@Url.Action("Read", "Admin")' + getSearchParam(),
+                    type: 'POST',
+                    dataType: 'JSON'
+                },
+
+                columns: [
+                    {
+                        "render": function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        },
+                        className: 'text-center',
+                    },
+                    { data: "username" },
+                    {
+                        data: "email",
+                        className: 'text-center',
+                    },
+                    {
+                        data: "role",
+                        className: 'text-center',
+                    },
+                    {
+                        data: "status",
+                        className: 'text-center',
+                        render: function (d) {
+                            var txt = '';
+                            if (d == 'ENABLED') { txt += '<span class="badge badge-primary">Enabled</span>'; }
+                            else { txt += '<span class="badge badge-danger">Disabled</span>'; }
+                            return txt;
+                        }
+                    },
+                    {
+                        data: "id",
+                        className: 'text-center',
+                        orderable: false,
+                        render: function (data, type, row, meta) {
+                            return `
+                                            <button type="button" class="btn btn-light btn-sm" onclick="AdminEdit(${meta.row})">
+                                                Edit
+                                                <i class="ki-duotone ki-notepad-edit ms-3">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                </i>
+                                            </button>
+
+                                                <button type="button" class="btn btn-sm btn-info" onclick="AdminSetPass(${data})">
+                                            Set Password
+                                            <i class="ki-duotone ki-notepad-edit ms-3">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            </i>
+                                            </button>
+
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="IPDelete(${row.id}, '${row.ipAddress}')">
+                                                Delete
+                                                <i class="ki-duotone ki-trash-square ms-3">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                </i>
+                                            </button>
+                                `;
+                        }
+                    }
+                ]
+            });
+
+        } else {
+            AdmTab.ajax.url("@Url.Action("Read", "Admin")" + getSearchParam()).load();
+        }
+    }
+
+</script>

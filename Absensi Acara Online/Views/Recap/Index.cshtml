@@ -1,0 +1,42 @@
+﻿<div class="card mb-3">
+    <div class="card-body">
+        <div id="" class="row">
+            <div class="col-md-8">
+                <input type="search" id="qEvent" class="form-control" placeholder="Search Event" autocomplete="off" />
+            </div>
+            <div class="col-md-3">
+                <input type="search" id="qAttender" class="form-control" placeholder="Search Attender" autocomplete="off" />
+            </div>
+            <div class="col-md-1 d-flex align-items-end">
+                <button type="button" onclick="RecapTable()" class="btn btn-secondary"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card card-flush">
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table align-middle table-row-dashed fs-6 gy-3 no-footer" id="RecapTable">
+                <thead>
+                    <tr class="text-gray-500 fw-bold fs-7 text-uppercase gs-0">
+                        <th class="text-center min-w-20px">No.</th>
+                        <th class="min-w-20px">Event</th>
+                        <th class="text-center min-w-50px">Attender</th>
+                        <th class="text-center min-w-20px">Phone</th>
+                        <th class="text-center min-w-25px">Email</th>
+                        <th class="text-center min-w-50px">Signature</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Views/Recap/Modal/ModalView.cshtml")
+
+@section Scripts {
+    @await Html.PartialAsync("~/Views/Recap/Modal/ModalJS.cshtml")
+    @await Html.PartialAsync("~/Views/Recap/DatatableJS.cshtml")
+}

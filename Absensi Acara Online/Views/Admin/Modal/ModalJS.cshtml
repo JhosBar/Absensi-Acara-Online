@@ -1,0 +1,164 @@
+﻿<script>
+    $(function () {
+        AdminTable();
+
+    });
+
+    var modalCreate = $('#Admin_ModalCreate');
+    var modalEdit = $('#Admin_ModalEdit');
+    var modalSetPass = $('#Admin_ModalSetPass');
+
+    function ViewCreate_Modal() {
+        modalCreate.modal('show');
+    }
+    
+    function CloseModal() {
+
+        $('#FormAdminCreate')[0].reset();
+        modalCreate.modal('hide');
+        $('#FormAdminEdit')[0].reset();
+        modalEdit.modal('hide');
+        $('#FormAdminEdit')[0].reset();
+        modalSetPass.modal('hide');
+        $('#FormAdminSetPass')[0].reset();
+
+        
+    }
+
+    function SubmitCreateModal() {
+        var data = $("#FormAdminCreate").serialize();
+
+        $.ajax({
+            url: '@Url.Action("Create", "Admin")',
+            type: 'POST',
+            data: data,
+            success: function (res) {
+                if (res.result == true) {
+                    modalCreate.modal('hide');
+
+                    $('#FormAdminCreate')[0].reset();
+
+                    toastr.success(res.message + " is Created");
+
+                    AdmTab.ajax.reload();
+                }
+                else {
+                    toastr.info(res.message);
+                }
+            }
+        });
+    }
+
+    function AdminEdit(i) {
+        if (i >= 0) {
+            var data = AdmTab.row(i).data();
+            if (data) {
+                $('#AdminIdEdit').val(data.id);
+                // $('#AdminUsername_Edit').val(data.username);
+                $('#AdminUsername_Edit').text(data.username);
+                $('#AdminEmail_Edit').val(data.email);
+                $('#AdminRole_Edit').val(data.roleId);
+
+                if (data.status == "ENABLED") {
+                    $('#Status_Edit').prop("checked", true);
+                } else {
+                    $('#Status_Edit').prop("checked", false);
+                }
+
+            }
+        }
+        modalEdit.modal('show');
+    }
+
+    function SubmitEditModal() {
+        var data = $("#FormAdminEdit").serialize();
+        $.ajax({
+            url: '@Url.Action("Update", "Admin")',
+            type: 'POST',
+            data: data,
+            success: function (res) {
+                if (res.result == true) {
+                    modalEdit.modal('hide');
+
+                    $('#FormAdminEdit')[0].reset();
+
+                    toastr.success(res.message);
+
+                    AdmTab.ajax.reload();
+                }
+                else {
+                    toastr.info(res.message);
+                }
+            }
+        })
+    }
+
+    function AdminSetPass(k) {
+        if (k >= 0) {
+            var data = AdmTab.row(k).data();
+            if (data) {
+                $('#AdminIdSetPass').val(data.id);
+
+            }
+        }
+        modalSetPass.modal('show');
+    }
+
+    function SubmitSetPassModal() {
+        var data = $("#FormAdminSetPass").serialize();
+        $.ajax({
+            url: '@Url.Action("SetPass", "Admin")',
+            type: 'POST',
+            data: data,
+            success: function (res) {
+                if (res.result == true) {
+                    modalSetPass.modal('hide');
+
+                    $('#FormAdminSetPass')[0].reset();
+
+                    toastr.success(res.message);
+
+                    AdmTab.ajax.reload();
+                }
+                else {
+                    toastr.info(res.message);
+                }
+            }
+        })
+    }
+
+    function IPDelete(id, ipAddress) {
+        console.log(id)
+
+        msg = "Successful";
+
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Delete", "IP")',
+                    data: { id: id, ipAddress: ipAddress },
+                    success: function (res) {
+                        if (res) {
+                            toastr.success("Successfully removed " + res.message + "!");
+                            IPTab.ajax.reload();
+                        }
+                        else {
+                            toastr.info(res.message);
+                        }
+                    },
+                });
+            }
+        });
+    }
+
+</script>
+
+                    

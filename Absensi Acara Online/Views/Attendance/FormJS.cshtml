@@ -1,0 +1,156 @@
+﻿<script>    
+    $(function () {
+        var canvas = document.querySelector(".js-signature");
+        var signaturePad = new SignaturePad(canvas, {
+            minWidth: 1,
+            maxWidth: 1.5,
+            penColor: "rgb(255, 255, 255)"
+
+        });
+
+        $(document).on("click", '#SignClear', function () {
+            signaturePad.clear();
+        });
+
+        // $(document).on("click", '#SignDownload', function () {
+        //     if (signaturePad.isEmpty()) {
+        //         alert("Please provide a signature first.");
+        //     } else {
+        //         var dataURL = signaturePad.toDataURL("image/jpeg");
+        //         console.log(dataURL);
+        //         download(dataURL, "signature.jpg");
+        //     }
+        // });
+    });
+
+    // function download(dataURL, filename) {
+    //     var blob = dataURLToBlob(dataURL);
+    //     var url = window.URL.createObjectURL(blob);
+
+    //     var a = document.createElement("a");
+    //     a.style = "display: none";
+    //     a.href = url;
+    //     a.download = filename;
+
+    //     document.body.appendChild(a);
+    //     a.click();
+
+    //     window.URL.revokeObjectURL(url);
+    // }
+
+    // function dataURLToBlob(dataURL) {
+    //     var parts = dataURL.split(';base64,');
+    //     var contentType = parts[0].split(":")[1];
+    //     var raw = window.atob(parts[1]);
+    //     var rawLength = raw.length;
+    //     var uInt8Array = new Uint8Array(rawLength);
+
+    //     for (var i = 0; i < rawLength; ++i) {
+    //         uInt8Array[i] = raw.charCodeAt(i);
+    //     }
+
+    //     return new Blob([uInt8Array], { type: contentType });
+    // }
+
+    function updateDateTime() {
+        const datetimeElement = document.getElementById("datetimeCurrent");
+
+        function updateTime() {
+            const now = moment();
+            // datetimeElement.innerHTML = now.format("ddd, Do MMM YYYY HH:mm:ss");
+            datetimeElement.innerHTML = now.format("dddd, Do MMMM YYYY HH:mm:ss");
+        }
+
+        // Update immediately and then every 1 second
+        updateTime();
+        setInterval(updateTime, 1000);
+    }
+    window.onload = updateDateTime;
+
+    // function SubmitAttenderForm() {
+    //     var data = $("#attenderForm").serialize();
+
+    //     $.ajax({
+    //         url: '@Url.Action("Attend", "Attendance")',
+    //         type: 'POST',
+    //         data: data,
+    //         success: function (res) {
+    //             if (res.result == true) {
+    //                 toastr.success(res.message);
+
+    //                 setTimeout(function () {
+    //                     toastr.info("Please wait");
+    //                 }, 500);
+
+    //                 setTimeout(function () {
+    //                     window.location.replace("@Url.Action("Index", "Home")");
+    //                     $('#attenderForm')[0].reset();
+    //                 }, 2500);
+                    
+    //             }
+    //             else {
+    //                 toastr.info(res.message);
+    //             }
+    //         }
+    //     });
+    // }
+
+    function dataURLToBlob(dataURL) {
+        var parts = dataURL.split(';base64,');
+        var contentType = parts[0].split(":")[1];
+        var raw = window.atob(parts[1]);
+        var rawLength = raw.length;
+        var uInt8Array = new Uint8Array(rawLength);
+
+        for (var i = 0; i < rawLength; ++i) {
+            uInt8Array[i] = raw.charCodeAt(i);
+        }
+
+        return new Blob([uInt8Array], { type: contentType });
+    }
+
+    function SubmitAttenderForm() {
+        // Serialize form data
+        var formData = new FormData($("#attenderForm")[0]);
+
+        // Get signature data URL
+        var signatureDataURL = document.querySelector(".js-signature").toDataURL("image/jpeg");
+
+        // Convert signature data URL to Blob
+        var signatureBlob = dataURLToBlob(signatureDataURL);
+
+        if (signatureBlob.size >= 1044) {
+            // Append signature data Blob to form data
+            formData.append("Signature", signatureBlob, "signature.jpg");
+
+            // AJAX call to submit form data
+            $.ajax({
+                url: '@Url.Action("Attend", "Attendance")',
+                type: 'POST',
+                data: formData,
+                processData: false, // Prevent jQuery from processing data
+                contentType: false, // Prevent jQuery from setting content type
+                success: function (res) {
+                    if (res.result == true) {
+                        toastr.success(res.message);
+
+                        setTimeout(function () {
+                            toastr.info("Please wait");
+                        }, 500);
+
+                        setTimeout(function () {
+                            window.location.replace("@Url.Action("Index", "Home")");
+                            $('#attenderForm')[0].reset();
+                        }, 2500);
+                    } else {
+                        toastr.info(res.message);
+                    }
+                }
+            });
+        } else {
+            toastr.info("Please provide a signature first.");
+        }
+    }
+
+
+</script>

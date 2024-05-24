@@ -1,0 +1,124 @@
+﻿<!--begin::Toolbar-->
+<div id="kt_app_toolbar" class="app-toolbar">
+	<!--begin::Toolbar container-->
+	<div id="kt_app_toolbar_container" class="app-container container-xxl d-flex align-items-start">
+		<!--begin::Toolbar container-->
+		<div class="d-flex flex-column flex-row-fluid">
+			<!--begin::Toolbar wrapper-->
+			<div class="d-flex align-items-center pt-1"></div>
+			<!--end::Toolbar wrapper=-->
+			<!--begin::Page title-->
+			<div class="page-title d-flex align-items-center me-3 mb-4 pt-9 pt-lg-17 mb-lg-15">
+				<div class="btn btn-icon btn-custom h-65px w-65px me-6">
+					@* <img alt="Logo" src="assets/media/svg/misc/layer.svg" class="h-40px" /> *@
+					<a href="@Url.Action("Index", "Home")">
+						<i class="bi bi-house-fill" style="font-size:2.3em; color:white;"></i>
+					</a>
+				</div>
+				<!--begin::Title-->
+				@* <h1 class="page-heading d-flex text-white fw-bolder fs-2 flex-column justify-content-center my-0">
+					Welcome Admin !
+					<!--begin::Description-->
+					<span class="page-desc fs-6 fw-bold pt-4">
+						<i class="ki-outline ki-star fs-6 text-warning me-2"></i>
+						<span class="custom-text me-3 lh-0">4.89</span>
+						<span class="d-flex align-items-center lh-0 fs-7">
+							7,834 Reviews
+							<span class="bullet h-6px w-6px mx-3"></span>#1 Admin Dashboard Template
+						</span>
+					</span>
+					<!--end::Description-->
+				</h1> *@
+				
+				<!--begin::Title-->
+				<div class="fs-1 page-heading d-flex text-white fw-bolder fs-2 flex-column justify-content-center my-0">
+					Welcome Admin !
+					<!--begin::Description-->
+					<div class="page-desc fs-6 fw-bold pt-2">
+						@* <i class="ki-outline ki-star fs-6 text-warning me-2"></i> *@
+						<i class="ki-outline ki-calendar fs-4 text-warning me-2"></i>
+						<span id="datedayCurrent" class="custom-text me-3 lh-0 fs-6"></span>
+						<span class="custom-text me-3 lh-0">•</span>
+						<span id="datetimeCurrent" class="d-flex align-items-center lh-0 fs-7"></span>
+					</div>
+					<!--end::Description-->
+				</div>
+				<!--end::Title-->
+
+			</div>
+			<!--end::Page title-->
+			<!--begin::Toolbar wrapper=-->
+			<div class="d-flex justify-content-between flex-wrap gap-4 gap-lg-10">
+				<!--begin::Toolbar menu-->
+				<div class="app-toolbar-menu menu menu-rounded menu-gray-800 menu-state-bg flex-wrap fs-5 fw-semibold">
+					<!--begin::Menu item-->
+					<div class="menu-item pb-xl-8 pb-4 mt-5 mt-lg-0">
+						<a class="menu-link" href="@Url.Action("Index","Admin")">
+							<span class="menu-title">Admin List</span>
+						</a>
+					</div>
+					<!--end::Menu item-->
+					<!--begin::Menu item-->
+					<div class="menu-item pb-xl-8 pb-4 mt-5 mt-lg-0">
+						<a class="menu-link" href="@Url.Action("Index","Event")">
+							<span class="menu-title">Ongoing Events</span>
+						</a>
+					</div>
+					<!--end::Menu item-->
+					<!--begin::Menu item-->
+					<div class="menu-item pb-xl-8 pb-4 mt-5 mt-lg-0">
+						<a class="menu-link" href="@Url.Action("Index","Recap")">
+							<span class="menu-title">Recapitulation List</span>
+						</a>
+					</div>
+					<!--end::Menu item-->
+					@* <!--begin::Menu item-->
+					<div class="menu-item pb-xl-8 pb-4 mt-5 mt-lg-0">
+						<a class="menu-link" href="../../demo32/dist/apps/subscriptions/list.html">
+							<span class="menu-title">Page 4</span>
+						</a>
+					</div>
+					<!--end::Menu item--> *@
+				</div>
+				<!--begin::Toolbar menu-->
+				@* <!--begin::Wrapper-->
+				<div class="d-flex flex-align-items flex-wrap gap-3 gap-xl-0 mb-7 mt-n1">
+					<!--begin::Actions-->
+					<div class="d-flex align-items-center flex-shrink-0">
+						<a href="#" class="btn btn-sm btn-flex btn-primary px-3" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends">
+							<i class="ki-outline ki-plus-square fs-2"></i>Invite
+						</a>
+						<a href="#" class="btn btn-sm btn-flex btn-light ms-5" data-bs-toggle="modal" data-bs-target="#kt_modal_new_target">Set Your Target</a>
+					</div>
+					<!--end::Actions-->
+				</div>
+				<!--end::Wrapper--> *@
+			</div>
+			<!--end::Toolbar wrapper=-->
+		</div>
+		<!--end::Toolbar container=-->
+	</div>
+	<!--end::Toolbar container-->
+</div>
+<!--end::Toolbar-->
+
+<script>
+
+	function updateDateTime() {
+		const datedayElement = document.getElementById("datedayCurrent");
+        const datetimeElement = document.getElementById("datetimeCurrent");
+
+        function updateTime() {
+            const now = moment();
+            // datetimeElement.innerHTML = now.format("ddd, Do MMM YYYY HH:mm:ss");
+			datedayElement.innerHTML = now.format("dddd");
+            datetimeElement.innerHTML = now.format("Do MMMM YYYY HH:mm:ss");
+        }
+
+        // Update immediately and then every 1 second
+        updateTime();
+        setInterval(updateTime, 1000);
+    }
+    window.onload = updateDateTime;
+
+</script>

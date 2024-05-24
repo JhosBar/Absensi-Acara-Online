@@ -1,0 +1,86 @@
+﻿<script>
+    $(document).ready(function () {
+        RecapTable();
+    });
+
+    function getSearchParam() {
+        let qEvent = "?qEvent=" + $('#qEvent').val();
+        let qAttender = "&qAttender=" + $('#qAttender').val();
+
+        let param = qEvent + qAttender;
+        return param;
+    }
+
+    var RecapTab;
+    function RecapTable() {
+        if (!RecapTab) {
+            RecapTab = $('#RecapTable').DataTable({
+
+                scrollY: true,
+                scrollX: false,
+                responsive: false,
+                filter: false,
+                processing: true,
+                serverSide: true,
+                order: [[1, 'asc']],
+
+                lengthMenu: [
+                    [10, 25, 50, 100, 500],
+                    ['10', '25', '50', '100', '500']
+                ],
+
+                ajax: {
+                    url: '@Url.Action("Read", "Recap")' + getSearchParam(),
+                    // url: '@Url.Action("Read", "Recap")',
+                    type: 'POST',
+                    dataType: 'JSON'
+                },
+
+                columns: [
+                    {
+                        "render": function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        },
+                        className: 'text-center',
+                    },
+                    { 
+                        data: "event",
+                        className: 'mw-400px',
+                    },
+                    {
+                        data: "attenderName",
+                        className: 'text-center align-middle',
+                    },
+                    {
+                        data: "attenderPhone",
+                        className: 'text-center align-middle',
+                    },
+                    {
+                        data: "attenderEmail",
+                        className: 'text-center align-middle',
+                    },
+                    {
+                        data: "aSignature",
+                        className: 'text-center align-middle',
+                        render: function (data, type, row, meta) {
+                            return `
+                                    <button type="button" class="btn btn-sm btn-light" onclick="ViewAttenderSignature(${meta.row})">
+                                        <i class="ki-duotone ki-pencil ms-1" style="font-size:18px;">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                        <span class="path3"></span>
+                                        </i>
+                                    </button>
+                                `;
+                        }
+                    },
+                ]
+            });
+
+        } else {
+            RecapTab.ajax.url("@Url.Action("Read", "Recap")" + getSearchParam()).load();
+            // RecapTab.ajax.url("@Url.Action("Read", "Recap")").load();
+        }
+    }
+
+</script>

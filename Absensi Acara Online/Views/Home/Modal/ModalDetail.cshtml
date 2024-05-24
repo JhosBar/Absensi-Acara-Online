@@ -1,0 +1,71 @@
+﻿<!--Bank Statement Import Modal - File -->
+<div class="modal fade" id="Home_ModalEventDetail" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-md">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="fs-2" style="font-weight:bold;">Event Details</span>
+				<!--begin::Close-->
+				<div>
+					<button type="button" class="btn btn-sm btn-light fw-bold" onclick="CloseModal()">Close</button>
+				</div>
+			</div>
+
+			<div class="modal-body py-lg-1 px-lg-10">
+				<div class="py-lg-5">
+					<!--begin::Body-->
+					<div class="d-flex flex-column flex-lg-row-fluid" enctype="multipart/form-data">
+
+						<div class="tab-content" id="myTabContent">
+							<!--File Form-->
+							<div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
+								<form>
+									<div class="p-4 px-5 d-flex justify-content-center">
+										<div class="row">
+											<div class="row mb-5">
+												<div class="row">
+													<span id="ModalDetail_Title" class="fs-1" style="font-weight:bold;"></span>
+												</div>
+											</div>
+											<div class="row mb-7 justify-content-center">
+												<div class="col-sm-6 col-12">
+													<div class="row">
+														<label class="form-label fs-6 m-0">Date</label>
+													</div>
+													<div class="row">
+														<span id="ModalDetail_Date" class="fs-3" style="font-weight:bold;"></span>
+													</div>
+												</div>
+												<div class="col-sm-6 col-12">
+													<div class="row">
+														<label class="form-label fs-6 m-0">Time</label>
+													</div>
+													<div class="row">
+														<span id="ModalDetail_Time" class="fs-3" style="font-weight:bold;"></span>
+													</div>
+												</div>
+											</div>
+											<div class="row mb-5 justify-content-center">
+												<label class="form-label fs-6">Location</label>
+												<span id="ModalDetail_Location" class="fw-bold">
+												</span>
+											</div>
+											<div class="row mb-5 justify-content-center">
+												<label class="form-label fs-6">Description</label>
+												<span id="ModalDetail_Note" class="fw-bold">
+												</span>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<!--end::Modal content-->
+		</div>
+		<!--end::Modal dialog-->
+	</div>
+</div>

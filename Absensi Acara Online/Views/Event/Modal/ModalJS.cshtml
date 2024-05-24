@@ -1,0 +1,299 @@
+﻿<script>
+    $(function () {
+        $('.timepkr').flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            // enableSeconds: true,
+        });
+
+        var start = moment().subtract(29, "days");
+        var end = moment();
+
+        function cb(start, end) {
+            $("#qDate").html(start.format("D MMMM,YYYY") + " - " + end.format("D MMMM,YYYY"));
+        }
+
+        $("#qDate").daterangepicker({
+            startDate: start,
+            endDate: end,
+
+            "locale": {
+                "format": "DD/MM/YYYY",
+            },
+
+        }, cb);
+
+        cb(start, end);
+
+        $("#qDate").on("apply.daterangepicker", function (ev, picker) {
+            var selectedStartDate = picker.startDate;
+            var selectedEndDate = picker.endDate;
+
+            // Calculate the difference in days
+            var daysDiff = selectedEndDate.diff(selectedStartDate, 'days');
+
+            // Update the displayed date range
+            cb(selectedStartDate, selectedEndDate);
+        });
+
+        // Daterange JS Create Modal
+        function cb(date) {
+            $("#EventDate_Create").html(date.format("D MMMM,YYYY"));
+        }
+
+        $("#EventDate_Create").daterangepicker({
+            singleDatePicker: true,
+            startDate: moment(), // Set default start date if needed
+
+            "locale": {
+                "format": "DD/MM/YYYY",
+            },
+
+        }, cb);
+
+        cb(moment()); // Set initial value
+
+        $("#EventDate_Create").on("apply.daterangepicker", function (ev, picker) {
+            var selectedDate = picker.startDate;
+            cb(selectedDate);
+        });
+
+        // Daterange JS Edit Modal
+        function cb(date) {
+            $("#EventDate_Edit").html(date.format("D MMMM,YYYY"));
+        }
+
+        $("#EventDate_Edit").daterangepicker({
+            singleDatePicker: true,
+            startDate: moment(), // Set default start date if needed
+
+            "locale": {
+                "format": "DD/MM/YYYY",
+            },
+
+        }, cb);
+
+        cb(moment()); // Set initial value
+
+        $("#EventDate_Edit").on("apply.daterangepicker", function (ev, picker) {
+            var selectedDate = picker.startDate;
+            cb(selectedDate);
+        });
+
+        $(document).on("click", '#ViewEventAttender', function () {
+            var form = $('#FormBankStatementEdit');
+            var formData = form.serialize();
+
+            const content = $('#AttenderContent');
+
+            $.ajax({
+                url: '@Url.Action("GetAttenderList", "Event")',
+                method: 'GET',
+                dataType: 'JSON',
+                data: formData,
+                success: function (data) {
+                    if (data && data.length > 0) {
+                        $.map(data, function (obj) {
+                            let formatted = moment(obj.submitTime, "YYYY-MM-DDTHH:mm:ss.SSS").format('DD-MM-YYYY | HH:mm');
+
+                            modalView.modal('hide');
+                            setTimeout(function () {
+                                modalViewAttender.modal('show');
+                            }, 250);
+
+                            return content.append(`
+                            <div class="col-6 d-flex align-item-center my-3">
+                                <div class="d-flex flex-stack">
+                                    <div class="symbol symbol-40px me-5">
+                                        <img src="assets/media/avatars/blank.png" class="h-50 align-self-center" alt="">
+                                    </div>
+                                    <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                        <div class="flex-grow-1 me-2">
+                                            <span class="text-gray-800 text-hover-primary fs-6 fw-bold">${obj.name}</span>
+                                            <span class="text-muted fw-semibold d-block fs-7">${formatted}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    `);
+                        });
+                    } else {
+                        // alert("No attendees yet");
+                        toastr.info("No attendees yet");
+                    }
+                }
+            });
+
+            var modalViewAttender = $('#Event_ModalViewAttender');
+            modalViewAttender.on('hidden.bs.modal', function () {
+                content.empty();
+            });
+
+        });
+    });
+
+    var modalCreate = $('#Event_ModalCreate');
+    var modalEdit = $('#Event_ModalEdit');
+    var modalView = $('#Event_ModalView');
+    var modalViewAttender = $('#Event_ModalViewAttender');
+
+    function ViewCreate_Modal() {
+        modalCreate.modal('show');
+    }
+    
+    function CloseModal() {
+
+        $('#FormEventCreate')[0].reset();
+        $('#FormEventEdit')[0].reset();
+        modalCreate.modal('hide');
+        modalEdit.modal('hide');
+        modalView.modal('hide');
+        modalViewAttender.modal('hide');
+        
+    }
+
+    function BackButton() {
+
+        modalViewAttender.modal('hide');
+        setTimeout(function () {
+            modalView.modal('show');
+        }, 250);
+        
+    }
+
+    function SubmitCreateModal() {
+        var data = $("#FormEventCreate").serialize();
+
+        $.ajax({
+            url: '@Url.Action("Create", "Event")',
+            type: 'POST',
+            data: data,
+            success: function (res) {
+                if (res.result == true) {
+                    modalCreate.modal('hide');
+
+                    $('#FormEventCreate')[0].reset();
+
+                    toastr.success(res.message + " is Created");
+
+                    EvntTab.ajax.reload();
+                }
+                else {
+                    toastr.info(res.message);
+                }
+            }
+        });
+    }
+
+    function EventEdit(i) {
+        if (i >= 0) {
+            var data = EvntTab.row(i).data();
+            if (data) {
+                $('#EventIdEdit').val(data.id);
+                $('#EventName_Edit').val(data.event);
+                $('#EventLocation_Edit').val(data.location);
+                $('#EventNote_Edit').val(data.note);
+
+                SetDateVal("#EventDate_Edit", data.dateText);
+                SetTimeVal("#EventHour_Edit", data.hour);
+
+            }
+        }
+        modalEdit.modal('show');
+    }
+
+    function SubmitEditModal() {
+        var data = $("#FormEventEdit").serialize();
+        $.ajax({
+            url: '@Url.Action("Update", "Event")',
+            type: 'POST',
+            data: data,
+            success: function (res) {
+                if (res.result == true) {
+                    modalEdit.modal('hide');
+
+                    $('#FormEventEdit')[0].reset();
+
+                    toastr.success(res.message);
+
+                    EvntTab.ajax.reload();
+                }
+                else {
+                    toastr.info(res.message);
+                }
+            }
+        })
+    }   
+
+    function ViewEventDetail(z) {
+        if (z >= 0) {
+            var data = EvntTab.row(z).data();
+            if (data) {
+                $('#EventIdView').val(data.id);
+                $('#EventView_Title').text(data.event);
+                $('#EventView_Date').text(data.date);
+                $('#EventView_Time').text(data.hour);
+
+                $('#EventView_Location').text(data.location);
+                $('#EventView_Note').text(data.note);
+
+                // animateCountUp(0, 10000 , 1)
+
+                // for (var i = 0; i < 10000; i++) {
+                //     $('#cobaCount').text(i);
+                // }
+            }
+
+        }
+        modalView.modal('show');
+    }
+
+    // function animateCountUp(start, end, duration) {
+    //     let startTime = null;
+    //     const step = (timestamp) => {
+    //         if (!startTime) startTime = timestamp;
+    //         const progress = timestamp - startTime;
+    //         const increment = Math.ceil((end - start) * (progress / duration));
+    //         const currentValue = start + increment;
+    //         $('#cobaCount').text(currentValue);
+    //         if (currentValue < end) {
+    //             requestAnimationFrame(step);
+    //         }
+    //     };
+    //     requestAnimationFrame(step);
+    // }
+
+    function EventDelete(id, event) {
+
+        msg = "Successful";
+
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Delete", "Event")',
+                    data: { id: id, event: event },
+                    success: function (res) {
+                        if (res) {
+                            toastr.success("Successfully removed " + res.message + "!");
+                            EvntTab.ajax.reload();
+                        }
+                        else {
+                            toastr.info(res.message);
+                        }
+                    },
+                });
+            }
+        });
+    }
+</script>
+
+                    

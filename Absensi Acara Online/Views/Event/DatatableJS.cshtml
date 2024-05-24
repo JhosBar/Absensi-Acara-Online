@@ -1,0 +1,104 @@
+﻿<script>
+    $(document).ready(function () {
+        EventTable();
+    });
+
+    function getSearchParam() {
+        let qEvent = "?qEvent=" + $('#qEvent').val();
+        // let qLocation = "&qLocation=" + $('#qLocation').val();
+
+        let qDateStart = "&qDateStart=" + moment($('#qDate').data('daterangepicker').startDate).format('DD/MM/YYYY');
+        let qDateEnd = "&qDateEnd=" + moment($('#qDate').data('daterangepicker').endDate).format('DD/MM/YYYY');
+
+        // let param = qEvent + qLocation + qDateStart + qDateEnd;
+        let param = qEvent + qDateStart + qDateEnd;
+        return param;
+    }
+
+    var EvntTab;
+    function EventTable() {
+        if (!EvntTab) {
+            EvntTab = $('#EventTable').DataTable({
+
+                scrollY: true,
+                scrollX: true,
+                responsive: false,
+                filter: false,
+                processing: true,
+                serverSide: true,
+                order: [[1, 'asc']],
+
+                lengthMenu: [
+                    [10, 25, 50, 100, 500],
+                    ['10', '25', '50', '100', '500']
+                ],
+
+                ajax: {
+                    url: '@Url.Action("Read", "Event")' + getSearchParam(),
+                    // url: '@Url.Action("Read", "Event")',
+                    type: 'POST',
+                    dataType: 'JSON'
+                },
+
+                columns: [
+                    {
+                        "render": function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        },
+                        className: 'text-center',
+                    },
+                    { 
+                        data: "event",
+                        className: 'mw-400px',
+                    },
+                    {
+                        data: "dateText",
+                        className: 'text-center align-middle mw-400px',
+                    },
+                    {
+                        data: "hour",
+                        className: 'text-center align-middle',
+                    },
+                    {
+                        data: "id",
+                        orderable: false,
+                        className: 'text-center align-middle',
+                        render: function (data, type, row, meta) {
+                            return `
+                                            <button type="button" class="btn btn-sm btn-light" onclick="ViewEventDetail(${meta.row})">
+                                            Event Details
+                                                <i class="ki-duotone ki-eye ms-1" style="font-size:18px;">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                                <span class="path3"></span>
+                                                </i>
+                                            </button>
+
+                                            <button type="button" class="btn btn-info btn-sm" onclick="EventEdit(${meta.row})">
+                                                Edit
+                                                <i class="ki-duotone ki-notepad-edit ms-2">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                </i>
+                                            </button>
+
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="EventDelete(${row.id}, '${row.event}')">
+                                                Delete
+                                                <i class="ki-duotone ki-trash-square ms-2">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                </i>
+                                            </button>
+                            `;
+                        }
+                    }
+                ]
+            });
+
+        } else {
+            EvntTab.ajax.url("@Url.Action("Read", "Event")" + getSearchParam()).load();
+            // EvntTab.ajax.url("@Url.Action("Read", "Event")").load();
+        }
+    }
+
+</script>
