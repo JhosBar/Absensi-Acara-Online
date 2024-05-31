@@ -28,14 +28,8 @@
                 serverSide: true,
                 order: [[1, 'asc']],
 
-                lengthMenu: [
-                    [10, 25, 50, 100, 500],
-                    ['10', '25', '50', '100', '500']
-                ],
-
                 ajax: {
                     url: '@Url.Action("Read", "Event")' + getSearchParam(),
-                    // url: '@Url.Action("Read", "Event")',
                     type: 'POST',
                     dataType: 'JSON'
                 },
@@ -97,7 +91,6 @@
 
         } else {
             EvntTab.ajax.url("@Url.Action("Read", "Event")" + getSearchParam()).load();
-            // EvntTab.ajax.url("@Url.Action("Read", "Event")").load();
         }
     }
 

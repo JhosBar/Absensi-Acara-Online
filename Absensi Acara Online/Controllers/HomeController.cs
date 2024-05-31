@@ -32,9 +32,9 @@ namespace Absensi_Acara_Online.Controllers
         }
 
 		[HttpGet]
-		public JsonResult GetCard()
+		public JsonResult GetCard(string qEventSearch)
 		{
-			var req = EventService.GetEventList();
+			var req = EventService.GetEventList(qEventSearch);
 			return Json(req);
 		}
 	}

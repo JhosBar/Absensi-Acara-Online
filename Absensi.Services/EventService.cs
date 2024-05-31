@@ -236,12 +236,13 @@ namespace Absensi.Services
             return (res);
         }
 
-		public List<EventList> GetEventList()
+		public List<EventList> GetEventList(string qEventSearch)
 		{
 			using (var ctx = new AbsensiContext())
 			{
 				var database = from v in ctx.MtEvents
 							   where v.FlgDeleted == false
+                               && (string.IsNullOrEmpty(qEventSearch) || v.Name != null && v.Name.Contains(qEventSearch))
 							   select new EventList
 							   {
 								   Id = v.Id,

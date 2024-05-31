@@ -13,7 +13,8 @@ namespace Absensi.Services.Interface
         public BaseResponse<List<EData>> Read(Paging paging, EventFilterData filterValue);
         public BaseResponse<bool> Update(EventData req);
         public BaseResponse<bool> Delete(long id, string Event);
-		public List<EventList> GetEventList();
+        //public List<EventList> GetEventList();
+        public List<EventList> GetEventList(string qEventSearch);
         public List<AttenderList> GetAttenderList(long id);
 
 

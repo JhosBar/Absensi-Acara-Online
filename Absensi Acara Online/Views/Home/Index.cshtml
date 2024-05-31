@@ -3,10 +3,12 @@
     Layout = "~/Views/Shared/_Layout_Home.cshtml";
     // Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div>
 
 <div class="row gy-5 g-xl-10" id="content">
 </div>
 
+</div>
 <style>
 	.btn-custom {
 		background-color: #4d19e3
@@ -25,14 +27,22 @@
 			FetchData();
 		});
 
+		function getSearchEvent() {
+			let qEventSearch = "?qEventSearch=" + $('#qEventSearch').val();
+
+			let param = qEventSearch;
+			return param;
+		}
+
 		function FetchData() {
 			const content = $('#content');
-
+			content.empty();
 			$.ajax({
-				url: '@Url.Action("GetCard", "Home")',
+				url: '@Url.Action("GetCard", "Home")' + getSearchEvent(),
 				method: 'GET',
 				dataType: 'JSON',
 				success: function (data) {
+					console.log(data);
 					$.map(data, function (obj) {
 
 						let formatted = moment(obj.dateText, "YYYY-MM-DD").format('dddd, D MMMM YYYY');
