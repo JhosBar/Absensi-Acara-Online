@@ -261,13 +261,14 @@ namespace Absensi.Services
 			}
 		}
 
-        public List<AttenderList> GetAttenderList(long id)
+        public List<AttenderList> GetAttenderList(long id, string qAttendeesSearch)
         {
             using (var ctx = new AbsensiContext())
             {
                 var database = from v in ctx.PRecaps
                                where v.FlgDeleted == false
-                                && v.EventId == id
+                               && (string.IsNullOrEmpty(qAttendeesSearch) || v.AttenderName != null && v.AttenderName.Contains(qAttendeesSearch))
+                               && v.EventId == id
                                select new AttenderList
                                {
                                    Id = v.Id,

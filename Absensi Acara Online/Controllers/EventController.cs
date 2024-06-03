@@ -110,9 +110,9 @@ namespace Absensi_Acara_Online.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetAttenderList(long id)
+        public JsonResult GetAttenderList(long id, string qAttendeesSearch)
         {
-            var req = EventService.GetAttenderList(id);
+            var req = EventService.GetAttenderList(id, qAttendeesSearch);
             return Json(req);
         }
     }

@@ -77,7 +77,7 @@
 												</div> *@
 
 												<div class="col-auto">
-													<a class="text-center btn btn-secondary" id="ViewEventAttender" style="width:100px;">
+													<a class="text-center btn btn-secondary" onclick="ViewEventAttender()" style="width:100px;">
 														<i class="bi bi-people-fill text-center" style="font-size:22px;"></i>Attender
 													</a>
 												</div>
@@ -121,9 +121,30 @@
 						<div class="tab-content" id="myTabContent">
 							<!--File Form-->
 							<div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
+
+								<!--begin::Search-->
+								<div class="d-flex align-items-center align-items-stretch mb-3">
+									<!--begin::Search-->
+									<div id="kt_header_search" class="header-search d-flex align-items-center w-100 w-lg-420px" data-kt-search-keypress="true" data-kt-search-min-length="2" data-kt-search-enter="enter" data-kt-search-layout="menu" data-kt-search-responsive="lg" data-kt-menu-trigger="auto" data-kt-menu-permanent="true" data-kt-menu-placement="bottom-end" data-kt-search="true">
+										<!--begin::Form(use d-none d-lg-block classes for responsive search)-->
+										<form data-kt-search-element="form" class="d-none d-lg-block w-100 position-relative mb-5 mb-lg-0" autocomplete="off">
+											<!--begin::Icon-->
+											<i class="ki-outline ki-magnifier search-icon fs-2 text-gray-500 position-absolute top-50 translate-middle-y ms-5"></i>
+											<!--end::Icon-->
+											<!--begin::Input-->
+											<input type="text" class="search-input form-control ps-13" name="search" id="qAttendeesSearch" value="" style="border-radius:13px 0px 0px 13px;" placeholder="Search..." data-kt-search-element="input">
+											<!--end::Input-->
+										</form>
+										<button type="button" onclick="ViewEventAttender()" class="btn btn-secondary" style="border-radius:0px 13px 13px 0px;"><i class="fas fa-search"></i></button>
+										<!--end::Form-->
+									</div>
+									<!--end::Search-->
+								</div>
+								<!--end::Search-->
+
 								<div id="AttenderContent" class="p-2 px-5 d-flex justify-content-start row">
 
-
+										
 									@* <div class="col-6 d-flex align-item-center my-3">
 										<div class="d-flex flex-stack">
 											<div class="symbol symbol-40px me-5">

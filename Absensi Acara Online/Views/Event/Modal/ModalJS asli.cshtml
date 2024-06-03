@@ -81,58 +81,56 @@
             cb(selectedDate);
         });
 
-        // $(document).on("click", '#ViewEventAttender', function () {
-        //     var form = $('#FormBankStatementEdit');
-        //     var formData = form.serialize();
+        $(document).on("click", '#ViewEventAttender', function () {
+            var form = $('#FormBankStatementEdit');
+            var formData = form.serialize();
 
-        //     const content = $('#AttenderContent');
-        //     content.empty();
-        //     $.ajax({
-        //         url: '@Url.Action("GetAttenderList", "Event")' + getSearchAttendees(),
-        //         method: 'GET',
-        //         dataType: 'JSON',
-        //         data: formData,
-        //         success: function (data) {
-        //             if (data && data.length > 0) {
-        //                 $.map(data, function (obj) {
-        //                     let formatted = moment(obj.submitTime, "YYYY-MM-DDTHH:mm:ss.SSS").format('DD-MM-YYYY | HH:mm');
+            const content = $('#AttenderContent');
 
-        //                     modalView.modal('hide');
-        //                     setTimeout(function () {
-        //                         modalViewAttender.modal('show');
-        //                     }, 250);
+            $.ajax({
+                url: '@Url.Action("GetAttenderList", "Event")',
+                method: 'GET',
+                dataType: 'JSON',
+                data: formData,
+                success: function (data) {
+                    if (data && data.length > 0) {
+                        $.map(data, function (obj) {
+                            let formatted = moment(obj.submitTime, "YYYY-MM-DDTHH:mm:ss.SSS").format('DD-MM-YYYY | HH:mm');
 
-        //                     return content.append(`
-                            
+                            modalView.modal('hide');
+                            setTimeout(function () {
+                                modalViewAttender.modal('show');
+                            }, 250);
 
-        //                     <div class="col-6 d-flex align-item-center my-3">
-        //                         <div class="d-flex flex-stack">
-        //                             <div class="symbol symbol-40px me-5">
-        //                                 <img src="assets/media/avatars/blank.png" class="h-50 align-self-center" alt="">
-        //                             </div>
-        //                             <div class="d-flex align-items-center flex-row-fluid flex-wrap">
-        //                                 <div class="flex-grow-1 me-2">
-        //                                     <span class="text-gray-800 text-hover-primary fs-6 fw-bold">${obj.name}</span>
-        //                                     <span class="text-muted fw-semibold d-block fs-7">${formatted}</span>
-        //                                 </div>
-        //                             </div>
-        //                         </div>
-        //                     </div>
-        //             `);
-        //                 });
-        //             } else {
-        //                 // alert("No attendees yet");
-        //                 toastr.info("No attendees yet");
-        //             }
-        //         }
-        //     });
+                            return content.append(`
+                            <div class="col-6 d-flex align-item-center my-3">
+                                <div class="d-flex flex-stack">
+                                    <div class="symbol symbol-40px me-5">
+                                        <img src="assets/media/avatars/blank.png" class="h-50 align-self-center" alt="">
+                                    </div>
+                                    <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                        <div class="flex-grow-1 me-2">
+                                            <span class="text-gray-800 text-hover-primary fs-6 fw-bold">${obj.name}</span>
+                                            <span class="text-muted fw-semibold d-block fs-7">${formatted}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    `);
+                        });
+                    } else {
+                        // alert("No attendees yet");
+                        toastr.info("No attendees yet");
+                    }
+                }
+            });
 
-        //     var modalViewAttender = $('#Event_ModalViewAttender');
-        //     modalViewAttender.on('hidden.bs.modal', function () {
-        //         content.empty();
-        //     });
+            var modalViewAttender = $('#Event_ModalViewAttender');
+            modalViewAttender.on('hidden.bs.modal', function () {
+                content.empty();
+            });
 
-        // });
+        });
     });
 
     var modalCreate = $('#Event_ModalCreate');
@@ -162,6 +160,7 @@
             modalView.modal('show');
         }, 250);
         
+
     }
 
     function SubmitCreateModal() {
@@ -295,67 +294,6 @@
                 });
             }
         });
-    }
-
-    function getSearchAttendees() {
-        let qAttendeesSearch = "?qAttendeesSearch=" + $('#qAttendeesSearch').val();
-
-        let param = qAttendeesSearch;
-        return param;
-    }
-
-    function ViewEventAttender() {
-
-        var form = $('#FormBankStatementEdit');
-        var formData = form.serialize();
-
-        const content = $('#AttenderContent');
-        content.empty();
-        $.ajax({
-            url: '@Url.Action("GetAttenderList", "Event")' + getSearchAttendees(),
-            method: 'GET',
-            dataType: 'JSON',
-            data: formData,
-            success: function (data) {
-                if (data && data.length > 0) {
-                    $.map(data, function (obj) {
-                        let formatted = moment(obj.submitTime, "YYYY-MM-DDTHH:mm:ss.SSS").format('DD-MM-YYYY | HH:mm');
-
-                        modalView.modal('hide');
-                        setTimeout(function () {
-                            modalViewAttender.modal('show');
-                        }, 250);
-
-                        return content.append(`
-
-
-                                            <div class="col-6 d-flex align-item-center my-3">
-                                                <div class="d-flex flex-stack">
-                                                    <div class="symbol symbol-40px me-5">
-                                                        <img src="assets/media/avatars/blank.png" class="h-50 align-self-center" alt="">
-                                                    </div>
-                                                    <div class="d-flex align-items-center flex-row-fluid flex-wrap">
-                                                        <div class="flex-grow-1 me-2">
-                                                            <span class="text-gray-800 text-hover-primary fs-6 fw-bold">${obj.name}</span>
-                                                            <span class="text-muted fw-semibold d-block fs-7">${formatted}</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                    `);
-                    });
-                } else {
-                    // alert("No attendees yet");
-                    toastr.info("No attendees yet");
-                }
-            }
-        });
-
-        var modalViewAttender = $('#Event_ModalViewAttender');
-        modalViewAttender.on('hidden.bs.modal', function () {
-            content.empty();
-        });
-
     }
 </script>
 
