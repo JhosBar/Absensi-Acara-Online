@@ -22,7 +22,7 @@
                 filter: false,
                 processing: true,
                 serverSide: true,
-                order: [[1, 'asc']],
+                // order: [[0, 'desc']],
 
                 lengthMenu: [
                     [10, 25, 50, 100, 500],
@@ -31,14 +31,14 @@
 
                 ajax: {
                     url: '@Url.Action("Read", "Recap")' + getSearchParam(),
-                    // url: '@Url.Action("Read", "Recap")',
                     type: 'POST',
                     dataType: 'JSON'
                 },
 
                 columns: [
                     {
-                        "render": function (data, type, row, meta) {
+                        data: "createdText",
+                        render: function (data, type, row, meta) {
                             return meta.row + meta.settings._iDisplayStart + 1;
                         },
                         className: 'text-center',
@@ -79,7 +79,6 @@
 
         } else {
             RecapTab.ajax.url("@Url.Action("Read", "Recap")" + getSearchParam()).load();
-            // RecapTab.ajax.url("@Url.Action("Read", "Recap")").load();
         }
     }
 

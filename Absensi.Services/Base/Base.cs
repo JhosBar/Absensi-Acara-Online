@@ -34,7 +34,7 @@ namespace Absensi.Services.Base
     {
         public int Start { get; set; }
         public int Length { get; set; }
-        public string Dir { get; set; }
-        public string Col { get; set; }
+        public string? Dir { get; set; }
+        public string? Col { get; set; }
     }
 }

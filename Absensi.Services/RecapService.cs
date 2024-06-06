@@ -39,6 +39,9 @@ namespace Absensi.Services
                                };
 
                 if (paging.Col == ("Event").ToLower()) { database = paging.Dir == "asc" ? database.OrderBy(x => x.Event) : database.OrderByDescending(x => x.Event); }
+                else if (paging.Col == ("attenderName")) { database = paging.Dir == "asc" ? database.OrderBy(x => x.attenderName) : database.OrderByDescending(x => x.attenderName); }
+                else if (paging.Col == ("attenderPhone")) { database = paging.Dir == "asc" ? database.OrderBy(x => x.attenderPhone) : database.OrderByDescending(x => x.attenderPhone); }
+                else if (paging.Col == ("createdText")) { database = paging.Dir == "asc" ? database.OrderByDescending(x => x.Created) : database.OrderBy(x => x.Created); }
 
                 m.Total = database.Count();
                 m.Result = database.Skip(paging.Start).Take(paging.Length).ToList();

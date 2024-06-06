@@ -353,6 +353,7 @@
 
         var modalViewAttender = $('#Event_ModalViewAttender');
         modalViewAttender.on('hidden.bs.modal', function () {
+            $('#qAttendeesSearch').val("");
             content.empty();
         });
 

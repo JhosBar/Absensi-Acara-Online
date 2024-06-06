@@ -58,6 +58,7 @@ namespace Absensi_Acara_Online.Controllers
             var dir = data.order.Select(terserah => terserah["dir"]).FirstOrDefault();
             var colName = data.columns[Convert.ToInt16(data.order.Select(terserah => terserah["column"]).FirstOrDefault())].data;
 
+            
             var reqData = EventService.Read(new Paging()
             {
                 Dir = dir,
