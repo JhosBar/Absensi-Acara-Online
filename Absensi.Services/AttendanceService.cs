@@ -15,35 +15,60 @@ namespace Absensi.Services
         public BaseResponse<bool> Attend(AttendData req)
         {
             var response = new BaseResponse<bool>();
+
+            if (req.Name.Any(char.IsDigit))
+            {
+                response.Result = false;
+                response.Message = "Invalid Name";
+                return response;
+            }
+
+            if (!req.Email.EndsWith("@gmail.com") && !req.Email.EndsWith("@yahoo.com"))
+            {
+                response.Result = false;
+                response.Message = "Invalid Email";
+                return response;
+            }
+
+            if (!req.Phone.All(char.IsDigit))
+            {
+                response.Result = false;
+                response.Message = "Invalid Phone number";
+                return response;
+            }
+
             using (var ctx = new AbsensiContext())
             {
                 var check = (from b in ctx.PRecaps
                              where b.AttenderEmail == req.Email
                              select b).FirstOrDefault();
 
-                if (check != null) 
+                if (check != null)
                 {
-                    response.Message = check.AttenderEmail + " already exist.";
+                    response.Message = check.AttenderEmail + " already exists.";
+                    response.Result = false;
+                    return response;
                 }
 
-                var newData = new PRecap();
-
-                newData.Created = DateTime.UtcNow;
-
-                newData.AttenderName = req.Name;
-                newData.AttenderPhone = req.Phone;
-                newData.AttenderEmail = req.Email;
-                newData.ASignature = Tool.SaveSignatureImage(req.Signature);
-                newData.EventId = req.EventId;
+                var newData = new PRecap
+                {
+                    Created = DateTime.UtcNow,
+                    AttenderName = req.Name,
+                    AttenderPhone = req.Phone,
+                    AttenderEmail = req.Email,
+                    ASignature = Tool.SaveSignatureImage(req.Signature),
+                    EventId = req.EventId
+                };
 
                 ctx.PRecaps.Add(newData);
                 ctx.SaveChanges();
 
                 response.Result = true;
-                response.Message = "Successfully record the data";
-
-                return response;
+                response.Message = "Successfully recorded the data";
             }
+
+            return response;
         }
+
     }
 }
