@@ -73,6 +73,12 @@ namespace Absensi.Services
                              where b.Name == req.Event
                              select b).FirstOrDefault();
 
+                if (check != null)
+                {
+                    response.Message = "Event Exists";
+                    return response;
+                }
+
                 var newData = new MtEvent();
 
                 newData.Created = DateTime.UtcNow;
